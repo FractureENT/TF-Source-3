@@ -2,11 +2,12 @@
 {
 	data = 
 	{
-		Type = "Multiplier"
+		Type = "Scalar"
 		EffectType = "PositiveOrNegative"
-		PositiveDescription = "%s1% damage bonus"
-		NegativeDescription = "%s1% damage penalty"
-		NeutralDescription = null
-		StringDescription = null
+		InversePositivity = false
+		PositiveDescription = "%value% damage bonus"
+		NegativeDescription = "%value% damage penalty"
+		Description = ""
+		DisplayValueAs = "Unmodified"
 	}
 }
