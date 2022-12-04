@@ -1,4 +1,5 @@
 ﻿using Sandbox;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -16,6 +17,7 @@ public enum TFAttributes
 /// </summary>
 
 [GameResource( "TF:S2 Weapon Data", "tfweapon", "Team Fortress: Source 2 weapons definitions", Icon = "🔫", IconBgColor = "#ff6861", IconFgColor = "#0e0e0e" )]
+[Obsolete( "Use TFItemDefinition" )]
 public class WeaponData : GameResource
 {
 	/// <summary>
