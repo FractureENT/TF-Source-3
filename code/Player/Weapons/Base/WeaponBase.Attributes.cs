@@ -8,7 +8,7 @@ namespace TFS2;
 /// </summary>
 partial class TFWeaponBase : IHasAttributes
 {
-	public Attributes Attributes { get; set; }
+	public Attributes Attributes { get; set; } = new();
 
 	public override string GetParticleTracerEffect()
 	{

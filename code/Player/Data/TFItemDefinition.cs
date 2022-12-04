@@ -1,15 +1,11 @@
 ﻿using Amper.FPS;
 using Sandbox;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TFS2;
 
 [GameResource( "TF:S2 Item Definition", "tfitem", "", Icon = "category" )]
-public class TFItemDefinition : ItemDefinition<TFPlayerClass>
+public class TFItemDefinition : EconItemDefinition
 {
 	public enum ViewModelSelectMode
 	{
@@ -41,4 +37,6 @@ public class TFItemDefinition : ItemDefinition<TFPlayerClass>
 	[ShowIf( "DefineViewModel", ViewModelSelectMode.PerClass )]
 	[Title( "View Model" )]
 	public Dictionary<TFPlayerClass, string> ViewModelPerClass { get; set; }
+
+	public List<TFPlayerClass> UsedByClasses { get; set; }
 }

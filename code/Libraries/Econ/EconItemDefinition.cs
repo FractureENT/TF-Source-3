@@ -4,12 +4,11 @@ using System.Collections.Generic;
 
 namespace Amper.FPS;
 
-public abstract class ItemDefinition<Classes> : GameResource where Classes : Enum
+public abstract class EconItemDefinition : GameResource, IIndexedEconDefinition
 {
+	public int DefinitionIndex { get; set; }
 	public virtual string Title { get; set; }
 	public virtual string EngineClass { get; set; }
-	public virtual bool IsPrefabOnly { get; set; }
-	public virtual List<Classes> UsedByClasses { get; set; }
 
 	[ResourceType( "png" )]
 	public virtual string InventoryImage { get; set; }
@@ -27,4 +26,9 @@ public abstract class ItemDefinition<Classes> : GameResource where Classes : Enu
 
 	[Category( "Prefabs" )]
 	public virtual List<string> Prefabs { get; set; }
+
+	protected override void PostLoad()
+	{
+		EconItemSchema.RegisterDefinition( this );
+	}
 }
