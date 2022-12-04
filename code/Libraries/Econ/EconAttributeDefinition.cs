@@ -1,8 +1,9 @@
-﻿using Sandbox;
+﻿using Amper.FPS;
+using Sandbox;
 
 namespace Amper.FPS;
 
-public class AttributeDefinition : GameResource
+public class EconAttributeDefinition : GameResource, IEconDefinition
 {
 	/// <summary>
 	/// Defines how this attribute will affect the undelying value.<br/>
@@ -54,7 +55,7 @@ public class AttributeDefinition : GameResource
 
 	protected override void PostLoad()
 	{
-		Attributes.RegisterDefinition( this );
+		EconItemSchema.RegisterDefinition( this );
 	}
 }
 
