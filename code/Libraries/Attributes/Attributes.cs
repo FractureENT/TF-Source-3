@@ -1,59 +1,43 @@
-﻿using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using Sandbox;
+﻿using Sandbox;
+using System.Collections.Generic;
 
 namespace Amper.FPS;
 
 public class Attributes
 {
-	private static Dictionary<StringToken, AttributeDefinition> DefinitionsByName = new();
+	private Dictionary<StringToken, EconAttributeAssignment> StaticAttributes = new();
+	private Dictionary<StringToken, EconAttributeAssignment> DynamicAttributes = new();
 
-	public static string NormalizeName( string attributeName )
+	public void CopyStaticFrom( EconItemDefinition itemDef )
 	{
-		// Trim the name to remove all the spaces.
-		attributeName = attributeName.Trim();
+		StaticAttributes.Clear();
 
-		// Attribute names are always lowercase.
-		attributeName = attributeName.ToLower();
-
-		// Replace all spaces with underscores.
-		attributeName = attributeName.Replace( " ", "_" );
-
-		// Remove all unsupported characters.
-		attributeName = Regex.Replace( attributeName, "[^a-z0-9_]", " " );
-		return attributeName;
+		// Copy over the static attributes from the definition.
+		foreach ( var pair in itemDef.Attributes ) 
+			StaticAttributes.Add( pair.Key, new( pair.Value ) );
 	}
 
-	public static AttributeDefinition GetDefinitionByName( string name )
+	public void AddAttribute( string attribName, string value )
 	{
-		name = NormalizeName( name );
-		if ( DefinitionsByName.TryGetValue( name, out AttributeDefinition attrDef ) )
-			return attrDef;
-
-		return null;
+		DynamicAttributes[attribName] = new( value );
 	}
 
-	public static void RegisterDefinition( AttributeDefinition attrDef )
-	{
-		var name = NormalizeName( attrDef.ResourceName );
-		DefinitionsByName.Add( name, attrDef );
-	}
-
-	public void Set( string attributeName, string value )
+	public static void HookValue<T>( IHasAttributes target, string attribName, ref float var )
 	{
 
 	}
+}
 
-	[ConCmd.Server( "sv_test_attribute" )]
-	public static void Command_TestAttribute( string name )
+public struct EconAttributeAssignment
+{
+	public int IntValue;
+	public float FloatValue;
+	public string StringValue;
+
+	public EconAttributeAssignment( string value )
 	{
-		var def = GetDefinitionByName( name );
-		if ( def == null )
-		{
-			Log.Info( "- Attribute not found." );
-			return;
-		}
-
-		Log.Info( "- Attribute Found: " + def.Type );
+		StringValue = value;
+		FloatValue = value.ToFloat();
+		IntValue = value.ToInt();
 	}
 }
