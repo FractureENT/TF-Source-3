@@ -7,12 +7,13 @@
 		DefineViewModel = "Globally"
 		ViewModel = null
 		ViewModelPerClass = null
-		Title = "Scattergun"
-		EngineClass = "tf_weapon_scattergun"
 		UsedByClasses = 
 		[
 			"Scout",
 		]
+		DefinitionIndex = 1
+		Title = "Scattergun"
+		EngineClass = "tf_weapon_scattergun"
 		InventoryImage = resource:"ui/weapons/renders/scattergun.png"
 		Attributes = 
 		{
