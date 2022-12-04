@@ -4,8 +4,10 @@ namespace TFS2;
 /// Partial for weapon attributes from data, with attributes taken into account.
 /// (When attribute system is implemented.)
 /// </summary>
-partial class TFWeaponBase
+partial class TFWeaponBase : IHasAttributes
 {
+	public Attributes Attributes { get; set; }
+
 	public override string GetParticleTracerEffect()
 	{
 		if ( IsCurrentAttackCritical )
