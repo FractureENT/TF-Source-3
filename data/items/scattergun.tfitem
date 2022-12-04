@@ -2,20 +2,28 @@
 {
 	data = 
 	{
-		Prefabs = 
-		[
-			resource:"data/items/scattergun.tfitem",
-		]
+		Prefabs = [  ]
+		WorldModel = null
+		DefineViewModel = "Globally"
+		ViewModel = null
+		ViewModelPerClass = null
 		Title = "Scattergun"
 		EngineClass = "tf_weapon_scattergun"
-		IsPrefabOnly = false
 		UsedByClasses = 
 		[
 			"Scout",
 		]
 		InventoryImage = resource:"ui/weapons/renders/scattergun.png"
-		WorldModel = ""
-		ViewModel = ""
-		Attributes = null
+		Attributes = 
+		{
+			Damage = "6"
+			Range = "4096"
+			"Bullets Per Shot" = "10"
+			Spread = "0.07"
+			"Punch Angle" = "3"
+			"Ammo Per Shot" = "1"
+			Falloff = "0.5"
+			Rampup = "1.75"
+		}
 	}
 }
