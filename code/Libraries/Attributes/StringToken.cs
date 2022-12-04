@@ -1,5 +1,4 @@
-﻿using Sandbox;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Amper.FPS;
 
@@ -27,8 +26,11 @@ public struct StringToken
 
 	public static string FromToken( uint id )
 	{
-		Log.Error( "StringToken.FromToken() - Called on a token that doesn't exist." );
-		if ( id >= Size ) return "";
+		if ( id >= Size ) 
+		{
+			Log.Error( "StringToken.FromToken() - Called on a token that doesn't exist." );
+			return "";
+		}
 
 		var str = Cache[(int)id];
 		Log.Info( $"StringToken.FromToken() - {id} => \"{str}\"" );
