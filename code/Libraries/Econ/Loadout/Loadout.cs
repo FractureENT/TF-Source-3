@@ -2,9 +2,9 @@ using Sandbox;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace TFS2;
+namespace Amper.FPS;
 
-public partial class Loadout : BaseNetworkable
+public partial class Loadout
 {
 	public static Loadout LocalLoadout => ForClient( Local.Client );
 	static Dictionary<Client, Loadout> All { get; set; } = new();
@@ -68,7 +68,9 @@ public partial class Loadout : BaseNetworkable
 		Client = client;
 	}
 
-	// Invalidates the loadout, we will request it again next time we need it.
+	/// <summary>
+	/// Invalidates the loadout, we will request it again next time we need it.
+	/// </summary>
 	public void Invalidate()
 	{
 		State = LoadoutState.Invalid;
@@ -78,7 +80,6 @@ public partial class Loadout : BaseNetworkable
 	/// <summary>
 	/// Load the loadout from the appropriate source if not yet loaded.
 	/// </summary>
-	/// <returns></returns>
 	public async Task Load()
 	{
 		State = LoadoutState.Loaded;
@@ -152,7 +153,7 @@ public partial class Loadout : BaseNetworkable
 		TimeSinceDataUpdated = 0;
 	}
 
-	public async Task<WeaponData> GetLoadoutItem( PlayerClass pclass, TFWeaponSlot slot )
+	public async Task<EconItemDefinition> GetLoadoutItem( PlayerClass pclass, TFWeaponSlot slot )
 	{
 		if ( pclass == null )
 			return null;

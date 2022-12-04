@@ -24,7 +24,6 @@ public class Attributes
 
 	public static void HookValue<T>( IHasAttributes target, string attribName, ref float var )
 	{
-
 	}
 }
 

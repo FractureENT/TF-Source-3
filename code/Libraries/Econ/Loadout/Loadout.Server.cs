@@ -2,9 +2,8 @@
 using System;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Amper.FPS;
 
-namespace TFS2;
+namespace Amper.FPS;
 
 public delegate void LoadoutAvailableDelegate( bool success );
 

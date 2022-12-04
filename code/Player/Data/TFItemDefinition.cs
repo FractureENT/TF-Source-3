@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace TFS2;
 
 [GameResource( "TF:S2 Item Definition", "tfitem", "", Icon = "category" )]
-public class TFItemDefinition : EconItemDefinition
+public class TFEconItemDefinition : EconItemDefinition
 {
 	public enum ViewModelSelectMode
 	{

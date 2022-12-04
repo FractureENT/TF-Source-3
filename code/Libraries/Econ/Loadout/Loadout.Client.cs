@@ -1,8 +1,7 @@
 using Sandbox;
-using Amper.FPS;
 using System.Text.Json;
 
-namespace TFS2;
+namespace Amper.FPS;
 
 partial class Loadout
 {

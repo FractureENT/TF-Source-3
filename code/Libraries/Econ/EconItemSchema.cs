@@ -40,7 +40,7 @@ public class EconItemSchema
 		return null;
 	}
 
-	public static T GetDefinitionByDefinitionIndex<T>( int defId ) where T : class, IEconDefinition
+	public static T GetDefinitionByIndex<T>( int defId ) where T : class, IEconDefinition
 	{
 		var type = typeof( T );
 		if ( !DefinitionByIndex.ContainsKey( type ) )
