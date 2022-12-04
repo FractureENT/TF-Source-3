@@ -51,6 +51,11 @@ public class AttributeDefinition : GameResource
 	public string Description { get; set; }
 
 	public AttributeFormatType DisplayValueAs { get; set; }
+
+	protected override void PostLoad()
+	{
+		Attributes.RegisterDefinition( this );
+	}
 }
 
 public enum AttributeType
