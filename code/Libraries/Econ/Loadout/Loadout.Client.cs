@@ -22,38 +22,25 @@ partial class Loadout
 		// Make sure our loadout is loaded before we access it.
 		await Load();
 
-		if ( IsDataValid() )
+		if ( !IsUpToDate() )
 		{
-			// Serialize our data
-			var json = JsonSerializer.Serialize( Data );
-
-			// compress it
-			json = json.Compress();
-
-			// Send to server.
-			OnClientTransmit( json );
+			// our data is not valid, so send an empty response
+			// because we still need to send something.
+			OnClientTransmit( "" );
 			return;
 		}
 
-		// our data is not valid, so send an empty response
-		// because we still need to send something.
-		OnClientTransmit( "" );
+		// Serialize our data
+		var json = JsonSerializer.Serialize( CachedData );
+
+		// compress it
+		json = json.Compress();
+
+		// Send to server.
+		OnClientTransmit( json );
 	}
 
-	public bool LoadDataFromDisk()
-	{
-		Host.AssertClient();
-
-		// Get data from disk.
-		Data = GetDataFromDisk();
-
-		if ( Data == null ) State = LoadoutState.Failed;
-		else State = LoadoutState.Loaded;
-
-		return Data != null;
-	}
-
-	public LoadoutData GetDataFromDisk()
+	public DeserializedData LoadDataFromDisk()
 	{
 		Host.AssertClient();
 
@@ -62,42 +49,23 @@ partial class Loadout
 			try
 			{
 				// Try to read from file storage.
-				return FileSystem.Data.ReadJson<LoadoutData>( "loadout.json" );
+				return FileSystem.Data.ReadJson<DeserializedData>( "loadout.json" );
 			}
 			catch { }
 		}
 
 		// If there is an error, or file doesn't exist, create a new one and return it.
-		var data = new LoadoutData();
+		var data = new DeserializedData();
 		FileSystem.Data.WriteJson( "loadout.json", data );
 		return data;
 	}
 
-	public bool SetLoadoutItem( PlayerClass pclass, TFWeaponSlot slot, WeaponData weapon )
+	public bool SetLoadoutItem( int classIndex, int slotIndex, EconItemDefinition itemDef )
 	{
 		Host.AssertClient();
 
-		if ( !IsDataValid() )
+		if ( itemDef == null )
 			return false;
-
-		if ( weapon == null )
-			return false;
-
-		if ( pclass == null )
-			return false;
-
-		// Check if whatever we have in the loadout is something we can actually wear.
-		if ( !weapon.CanBeOwnedByPlayerClass( pclass ) )
-			return false;
-
-		// loadout data doesn't contain anything for this class.
-		if ( !Data.Classes.TryGetValue( pclass.ResourceName, out var classData ) )
-		{
-			classData = new();
-			Data.Classes.Add( pclass.ResourceName, classData );
-		}
-
-		classData[(int)slot] = weapon.ResourceName;
 
 		WriteDataToDisk();
 		SendDataToServer();
@@ -108,10 +76,10 @@ partial class Loadout
 	{
 		Host.AssertClient();
 
-		if ( Data == null )
+		if ( CachedData == null )
 			return;
 
-		var json = JsonSerializer.Serialize( Data );
+		var json = JsonSerializer.Serialize( CachedData );
 		FileSystem.Data.WriteAllText( "loadout.json", json );
 	}
 }

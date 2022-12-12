@@ -1,4 +1,5 @@
-﻿using Sandbox;
+﻿using Amper.FPS;
+using Sandbox;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -71,7 +72,8 @@ public class PlayerClass : GameResource
 	// Weapons
 	//
 
-	[ResourceType( "tfweapon" )] public List<string> DefaultWeapons { get; set; }
+	[ResourceType( "tfitem" )] 
+	public List<string> DefaultWeapons { get; set; }
 	[ResourceType( "building" )] public List<string> Buildings { get; set; }
 
 	//
@@ -169,9 +171,9 @@ public class PlayerClass : GameResource
 		All[classname] = this;
 	}
 
-	public WeaponData GetDefaultWeaponForSlot( TFWeaponSlot slot )
+	public TFEconItemDefinition GetDefaultWeaponForSlot( TFWeaponSlot slot )
 	{
-		var weapons = DefaultWeapons.Select( x => ResourceLibrary.Get<WeaponData>( x ) );
+		var weapons = DefaultWeapons.Select( x => EconItemSchema.GetDefinitionByPath<EconItemDefinition>( x ) );
 
 		foreach ( var weapon in weapons )
 		{

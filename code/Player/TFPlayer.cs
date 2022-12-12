@@ -76,7 +76,7 @@ public partial class TFPlayer : SDKPlayer
 	/// Initialize and reset all player properties like health. This function will be called every time a player touches
 	/// a resupply locker or respawns.
 	/// </summary>
-	public void Regenerate( bool full = false )
+	public void Regenerate( bool fullRegeneration = false )
 	{
 		if ( !IsServer )
 			return;
@@ -94,7 +94,7 @@ public partial class TFPlayer : SDKPlayer
 			return;
 		}
 
-		if ( full )
+		if ( fullRegeneration )
 		{
 			// If we do full regeneration, delete our entire inventory.
 			DeleteAllWeapons();
@@ -114,11 +114,13 @@ public partial class TFPlayer : SDKPlayer
 		// Metal
 
 		// Let SDKGame know about this.
-		TFGameRules.Current.PlayerRegenerate( this, full );
+		TFGameRules.Current.PlayerRegenerate( this, fullRegeneration );
 	}
 
 	public async void RegenerateWeaponsForClass( PlayerClass pclass )
 	{
+		foreach(var weapon in pclass.GetDefaultWeaponForSlot)
+		/*
 		// getting loadout for this client
 		var loadout = Loadout.ForClient( Client );
 
@@ -144,7 +146,7 @@ public partial class TFPlayer : SDKPlayer
 
 			var weapon = data.CreateInstance();
 			EquipWeapon( weapon );
-		}
+		}*/
 
 		RegenerateAllWeapons();
 

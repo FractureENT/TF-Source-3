@@ -12,7 +12,7 @@
 		Responses = resource:"data/talker/scout.tftalker"
 		DefaultWeapons = 
 		[
-			resource:"data/weapons/scattergun.tfweapon",
+			resource:"data/items/scattergun.tfitem",
 			resource:"data/weapons/pistol.tfweapon",
 			resource:"data/weapons/bat.tfweapon",
 		]

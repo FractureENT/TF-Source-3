@@ -3,14 +3,18 @@
 	data = 
 	{
 		Prefabs = [  ]
-		WorldModel = null
-		DefineViewModel = "Globally"
-		ViewModel = null
-		ViewModelPerClass = null
+		ProperName = false
 		UsedByClasses = 
 		[
 			"Scout",
 		]
+		DefineSlot = "Globally"
+		Slot = "Primary"
+		SlotPerClass = null
+		WorldModel = null
+		DefineViewModel = "Globally"
+		ViewModel = null
+		ViewModelPerClass = null
 		DefinitionIndex = 1
 		Title = "Scattergun"
 		EngineClass = "tf_weapon_scattergun"

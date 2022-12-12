@@ -25,6 +25,7 @@ public partial class TFGameRules : SDKGame
 		if ( IsClient )
 		{
 			PostProcessingManager = new TFPostProcessingManager();
+
 		}
 	}
 

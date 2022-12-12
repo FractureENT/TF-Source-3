@@ -45,6 +45,7 @@ partial class ClassLoadout : MenuOverlay
 		WeaponSlots.DeleteChildren();
 		Slots.Clear();
 
+		/*
 		var loadout = Loadout.LocalLoadout;
 
 		foreach ( TFWeaponSlot slot in Enum.GetValues( typeof( TFWeaponSlot ) ) )
@@ -65,7 +66,7 @@ partial class ClassLoadout : MenuOverlay
 			}
 
 			AddLoadoutSlot( WeaponSlots, slot, weapon );
-		}
+		}*/
 	}
 
 	public void AddLoadoutSlot( Panel parent, TFWeaponSlot slot, WeaponData weapon )

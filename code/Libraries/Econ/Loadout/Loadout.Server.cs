@@ -1,22 +1,19 @@
 ﻿using Sandbox;
-using System;
 using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Amper.FPS;
 
-public delegate void LoadoutAvailableDelegate( bool success );
-
 partial class Loadout
 {
-	public event LoadoutAvailableDelegate LoadoutAvailable;
+	private delegate void ClientUpdateCallback( DeserializedData data );
+	private event ClientUpdateCallback OnClientUpdateCallback;
 
 	/// <summary>
 	/// We received loadout data from the client.
 	/// </summary>
-	/// <param name="data"></param>
 	[ConCmd.Server( "send_loadout" )]
-	public static void OnClientTransmit( string data )
+	public static void OnClientTransmit( string rawData )
 	{
 		Host.AssertServer();
 
@@ -24,40 +21,32 @@ partial class Loadout
 		if ( client == null )
 			return;
 
-		data = data.Decompress();
+		rawData = rawData.Decompress();
 
 		var loadout = ForClient( client );
 
 		// if what data that we recieved is not valid.
-		if ( string.IsNullOrEmpty( data ) )
+		if ( !string.IsNullOrEmpty( rawData ) )
 		{
-			loadout.State = LoadoutState.Failed;
-			loadout.LoadoutAvailable?.Invoke( false );
-			return;
+			// deserialize loadout data.
+			var data = JsonSerializer.Deserialize<DeserializedData>( rawData );
+			if ( data != null )
+			{
+				loadout.OnClientUpdateCallback?.Invoke( data );
+				loadout.OnClientUpdateCallback = null;
+			}
 		}
 
-		// deserialize loadout data.
-		var obj = JsonSerializer.Deserialize<LoadoutData>( data );
-
-		loadout.Data = obj;
-
-		loadout.LoadoutAvailable?.Invoke( false );
-		loadout.LoadoutAvailable = null;
-
-		loadout.OnUpdated();
+		loadout.OnClientUpdateCallback?.Invoke( null );
+		loadout.OnClientUpdateCallback = null;
 	}
 
-	public Task RequestDataFromClientAsync()
+	public Task<DeserializedData> LoadDataFromClient()
 	{
-		// bot's dont have loadouts, return completed task right away.
-		if ( Client.IsBot ) 
-			return GameTask.CompletedTask;
-
 		return GameTask.RunInThreadAsync( () =>
 		{
-			var t = new TaskCompletionSource();
-			RequestDataFromClient( r => { t.TrySetResult(); } );
-
+			var t = new TaskCompletionSource<DeserializedData>();
+			RequestDataFromClient( ( data ) => t.TrySetResult( data ) );
 			return t.Task;
 		} );
 	}
@@ -65,20 +54,11 @@ partial class Loadout
 	/// <summary>
 	/// Request loadout information from client.
 	/// </summary>
-	public void RequestDataFromClient( Action<bool> callback )
+	void RequestDataFromClient( ClientUpdateCallback callback )
 	{
 		Host.AssertServer();
 
-		LoadoutAvailable += ( success ) => callback( success );
-		RequestDataFromClient();
-	}
-
-	/// <summary>
-	/// Request loadout information from client.
-	/// </summary>
-	public void RequestDataFromClient()
-	{
-		Host.AssertServer();
+		OnClientUpdateCallback += callback;
 		OnServerRequest( To.Single( Client ) );
 	}
 }

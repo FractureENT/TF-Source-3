@@ -1,4 +1,5 @@
-﻿using Sandbox;
+﻿using Amper.FPS;
+using Sandbox;
 using Sandbox.UI;
 using Sandbox.UI.Construct;
 using System;
@@ -226,8 +227,9 @@ public class ClassSelectionPlayerModel : ScenePanel
 		//
 
 		// Fetch the player's inventory for the weapon preview...
-		Loadout loadout = Loadout.ForClient( Local.Client );
-		// and get the weapon for the preview slot.
+		var loadout = Loadout.ForClient( Local.Client );
+		
+		/*// and get the weapon for the preview slot.
 		WeaponData previewWeapon = await loadout.GetLoadoutItem( pclass, GetPreviewWeaponSlot() );
 		if ( previewWeapon == null ) return;
 
@@ -240,7 +242,7 @@ public class ClassSelectionPlayerModel : ScenePanel
 
 		int skin = Math.Clamp( player.TeamNumber - 2, 0, 1 );
 		PlayerModel.SetMaterialGroup( $"{skin}" );
-		WeaponModel.SetMaterialGroup( $"{skin}" );
+		WeaponModel.SetMaterialGroup( $"{skin}" );*/
 	}
 
 	public override void Tick()

@@ -1,4 +1,5 @@
-﻿using Sandbox;
+﻿using Amper.FPS;
+using Sandbox;
 using Sandbox.UI;
 
 namespace TFS2.UI;
@@ -43,7 +44,7 @@ partial class ItemSelection : MenuOverlay
 		var loadout = Loadout.LocalLoadout;
 		await loadout.Load();
 
-		// Add the currently equipped weapon.
+		/*// Add the currently equipped weapon.
 		var equipped = await loadout.GetLoadoutItem( PlayerClass, Slot );
 		if ( equipped != null )
 			AddItem( equipped, true );
@@ -60,7 +61,7 @@ partial class ItemSelection : MenuOverlay
 				continue;
 
 			AddItem( weapon );
-		}
+		}*/
 	}
 
 	public void AddItem( WeaponData data, bool equipped = false )
@@ -74,11 +75,11 @@ partial class ItemSelection : MenuOverlay
 
 		item.SetWeaponData( data );
 
-		item.OnClicked += () =>
+		/*item.OnClicked += () =>
 		{
 			Loadout.LocalLoadout.SetLoadoutItem( PlayerClass, Slot, data );
 			OnClickBack();
-		};
+		};*/
 	}
 
 	public void OnClickBack()
