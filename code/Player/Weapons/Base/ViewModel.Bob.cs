@@ -15,7 +15,7 @@ partial class TFViewModel
 	float VerticalBob;
 	float LateralBob;
 
-	public void CalculateViewBob( CameraSetup camSetup )
+	public void CalculateViewBob( DevCamera camSetup )
 	{
 		float cycle;
 
