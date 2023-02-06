@@ -671,8 +671,8 @@
 									m_flFixedCycleValue = 0.0
 									m_blendCurve = 
 									{
-										m_vControlPoint1 = [ 0.5, 0.0 ]
-										m_vControlPoint2 = [ 0.5, 1.0 ]
+										m_vControlPoint1 = [ 0.0, 0.0 ]
+										m_vControlPoint2 = [ 1.0, 1.0 ]
 									}
 									m_bForceFootPlant = false
 									m_bDisabled = false
@@ -741,8 +741,8 @@
 									m_flFixedCycleValue = 0.0
 									m_blendCurve = 
 									{
-										m_vControlPoint1 = [ 0.5, 0.0 ]
-										m_vControlPoint2 = [ 0.5, 1.0 ]
+										m_vControlPoint1 = [ 0.0, 0.0 ]
+										m_vControlPoint2 = [ 1.0, 1.0 ]
 									}
 									m_bForceFootPlant = false
 									m_bDisabled = false
@@ -1293,11 +1293,11 @@
 					m_id = 300325325
 				}
 				m_previewButton = "ANIMPARAM_BUTTON_NONE"
-				m_bNetwork = true
+				m_bNetwork = false
 				m_bUseMostRecentValue = false
 				m_bAutoReset = false
 				m_bPredicted = false
-				m_fDefaultValue = 0.0
+				m_fDefaultValue = 360.0
 				m_fMinValue = 0.0
 				m_fMaxValue = 360.0
 				m_bInterpolate = false

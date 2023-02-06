@@ -6,7 +6,7 @@
   "Owners": {
     "data/playerclass/demoman.tfclass": {
       "Reserve": 16,
-      "ViewModel": "models/weapons/v_models/v_grenadelauncher_demo.vmdl"
+      "ViewModel": "models/weapons/v_models/v_grenadelauncher_demo_4drums.vmdl"
     }
   },
   "Damage": 100,

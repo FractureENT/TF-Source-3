@@ -1,41 +1,21 @@
 ﻿using Sandbox;
+using System.Runtime.CompilerServices;
 
 namespace TFS2;
 
 public partial class GrenadeLauncher
 {
-	//Time since we started this reload loop cycle
-	public TimeSince TimeSinceReloadLoopCycle { get; set; }
 
-	public bool ReloadLoopStarted { get; set; }
+	public TimeSince TimeSinceReloadLoopCycle { get; set; }	//Time since we started this reload loop cycle
+	public bool ReloadSetBodygroupReady { get; set; } = false;	//Are we ready to set bodygroups?
+	public bool ReloadHasSetBodygroup { get; set; } = false;    //Have we set bodygroups this cycle?
+	public float ReloadSetBodygroupTime = 0.26f;    // What time during reload animation should the ammo bodygroup be set?
 
-	// What time during reload animation should the ammo bodygroup be set?
-	public float ReloadSetBodygroupTime = 0.26f;
 
-	//Are we ready to set bodygroups?
-	public bool ReloadSetBodygroupReady { get; set; } = false;
-
-	//Have we set bodygroups this cycle?
-	public bool ReloadHasSetBodygroup { get; set; } = false;
-
-	public override void SendAnimParametersOnReloadStop()
-	{
-		ReloadSetBodygroupReady = false;
-		ReloadHasSetBodygroup = false;
-
-		base.SendAnimParametersOnReloadStop();
-	}
-	public override void SimulateReload()
-	{
-		base.SimulateReload();
-		DynamicDrumSimulate();
-	}
 	public virtual void DynamicDrumSimulate()
 	{
-		//base.SimulateReload();
-
 		//If we've entered reload loop, toggle reload state
-		//b_reload_loop is a standard bool, while b_reload is an Auto-reset bool. This is done to prevent flickering due to slight delays in animation playing
+		//After a certain delay, set the bodygroup to the NEXT expected ammo. Workaround for bodygroup events not being dynamic
 
 		if ( TimeSinceReloadLoopCycle >= ReloadSetBodygroupTime && ReloadSetBodygroupReady && !ReloadHasSetBodygroup )
 		{
@@ -43,64 +23,53 @@ public partial class GrenadeLauncher
 			ReloadHasSetBodygroup = true;
 		}
 	}
+	#region Overrides
+	public override void SetupAnimParameters()
+	{
+		base.SetupAnimParameters();
+		UpdateViewmodelParams();
+	}
+	public override void SimulateReload()
+	{
+		base.SimulateReload();
+		DynamicDrumSimulate();
+	}
 	public override void FinishedReloadCycle()
 	{
-		UpdateViewmodelParams();
 		base.FinishedReloadCycle();
+		UpdateViewmodelParams();
 	}
-
+	public override void SendAnimParametersOnAttack()
+	{
+		base.SendAnimParametersOnAttack();
+		UpdateViewmodelParams();
+	}
 	public override void SendAnimParametersOnReloadInsert()
 	{
-		SetLoadedBodygroup( Clip );
-		ReloadLoopStarted = true;
-		if ( !ReloadSetBodygroupReady )
-		{
-			TimeSinceReloadLoopCycle = 0f;
-		}
-		ReloadSetBodygroupReady = true;
+		TimeSinceReloadLoopCycle = 0f;
+		ReloadSetBodygroupReady = true; //We have started Reload state, so delayed bodygroup knows when to trigger
+		ReloadHasSetBodygroup = false;
 	}
-
+	public override void SendAnimParametersOnReloadStop()
+	{
+		base.SendAnimParametersOnReloadStop();
+		UpdateViewmodelParams();
+		ReloadSetBodygroupReady = false;
+		ReloadHasSetBodygroup = false;
+	}
+	#endregion
 	public virtual void UpdateViewmodelParams()
 	{
+
+		Log.Info( $"Clip: {Clip}" );
 		SetLoadedBodygroup( Clip );
 		SendViewModelAnimParameter("f_drumangle", Clip * 90);
 	}
 
 	public virtual void SetLoadedBodygroup(int ammo)
 	{
-		switch(ammo)
-		{ 
-			case 0:
-				SendViewModelAnimParameter( "grenade_loaded1", false );
-				SendViewModelAnimParameter( "grenade_loaded2", false );
-				SendViewModelAnimParameter( "grenade_loaded3", false );
-				SendViewModelAnimParameter( "grenade_loaded4", false );
-				break;
-			case 1:
-				SendViewModelAnimParameter( "grenade_loaded1", true );
-				SendViewModelAnimParameter( "grenade_loaded2", false );
-				SendViewModelAnimParameter( "grenade_loaded3", false );
-				SendViewModelAnimParameter( "grenade_loaded4", false );
-				break;
-			case 2:
-				SendViewModelAnimParameter( "grenade_loaded1", true );
-				SendViewModelAnimParameter( "grenade_loaded2", true );
-				SendViewModelAnimParameter( "grenade_loaded3", false );
-				SendViewModelAnimParameter( "grenade_loaded4", false );
-				break;
-			case 3:
-				SendViewModelAnimParameter( "grenade_loaded1", true );
-				SendViewModelAnimParameter( "grenade_loaded2", true );
-				SendViewModelAnimParameter( "grenade_loaded3", true );
-				SendViewModelAnimParameter( "grenade_loaded4", false );
-				break;
-			case 4:
-				SendViewModelAnimParameter( "grenade_loaded1", true );
-				SendViewModelAnimParameter( "grenade_loaded2", true );
-				SendViewModelAnimParameter( "grenade_loaded3", true );
-				SendViewModelAnimParameter( "grenade_loaded4", true );
-				break;
-		}
+		ViewModel?.SetBodyGroup( "grenades_loaded", ammo );
+
 	}
 }
 

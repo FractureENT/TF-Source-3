@@ -179,7 +179,7 @@
 					},
 					{
 						_class = "RenderMeshFile"
-						name = "greande_loaded1"
+						name = "grenade_loaded1"
 						filename = "models/weapons/v_models/v_grenadelauncher_demo_4drums/v_grenadelauncher_demo_grenadeLoadedBack_1.dmx"
 						import_translation = [ 0.0, 0.0, 0.0 ]
 						import_rotation = [ 0.0, 0.0, 0.0 ]
@@ -196,7 +196,7 @@
 					},
 					{
 						_class = "RenderMeshFile"
-						name = "greande_loaded2"
+						name = "grenade_loaded2"
 						filename = "models/weapons/v_models/v_grenadelauncher_demo_4drums/v_grenadelauncher_demo_grenadeLoadedBack_2.dmx"
 						import_translation = [ 0.0, 0.0, 0.0 ]
 						import_rotation = [ 0.0, 0.0, 0.0 ]
@@ -213,7 +213,7 @@
 					},
 					{
 						_class = "RenderMeshFile"
-						name = "greande_loaded3"
+						name = "grenade_loaded3"
 						filename = "models/weapons/v_models/v_grenadelauncher_demo_4drums/v_grenadelauncher_demo_grenadeLoadedBack_3.dmx"
 						import_translation = [ 0.0, 0.0, 0.0 ]
 						import_rotation = [ 0.0, 0.0, 0.0 ]
@@ -230,7 +230,7 @@
 					},
 					{
 						_class = "RenderMeshFile"
-						name = "greande_loaded4"
+						name = "grenade_loaded4"
 						filename = "models/weapons/v_models/v_grenadelauncher_demo_4drums/v_grenadelauncher_demo_grenadeLoadedBack_4.dmx"
 						import_translation = [ 0.0, 0.0, 0.0 ]
 						import_rotation = [ 0.0, 0.0, 0.0 ]
@@ -567,7 +567,7 @@
 				[
 					{
 						_class = "BodyGroup"
-						name = "grenade_loaded1"
+						name = "grenades_loaded"
 						children = 
 						[
 							{
@@ -578,64 +578,28 @@
 								_class = "BodyGroupChoice"
 								meshes = 
 								[
-									"greande_loaded1",
+									"grenade_loaded1",
 								]
 							},
-						]
-						hidden_in_tools = false
-					},
-					{
-						_class = "BodyGroup"
-						name = "grenade_loaded2"
-						children = 
-						[
-							{
-								_class = "BodyGroupChoice"
-								meshes = [  ]
-							},
 							{
 								_class = "BodyGroupChoice"
 								meshes = 
 								[
-									"greande_loaded2",
+									"grenade_loaded2",
 								]
 							},
-						]
-						hidden_in_tools = false
-					},
-					{
-						_class = "BodyGroup"
-						name = "grenade_loaded3"
-						children = 
-						[
-							{
-								_class = "BodyGroupChoice"
-								meshes = [  ]
-							},
 							{
 								_class = "BodyGroupChoice"
 								meshes = 
 								[
-									"greande_loaded3",
+									"grenade_loaded3",
 								]
 							},
-						]
-						hidden_in_tools = false
-					},
-					{
-						_class = "BodyGroup"
-						name = "grenade_loaded4"
-						children = 
-						[
-							{
-								_class = "BodyGroupChoice"
-								meshes = [  ]
-							},
 							{
 								_class = "BodyGroupChoice"
 								meshes = 
 								[
-									"greande_loaded4",
+									"grenade_loaded4",
 								]
 							},
 						]
