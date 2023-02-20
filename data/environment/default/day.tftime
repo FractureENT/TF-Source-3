@@ -1,14 +1,14 @@
 {
   "SkyColor": "0.43529,0.74508,0.87059,1",
   "LightColor": "1,0.91374,0.81961,1",
-  "AmbientLightColor": "0.09804,0.09804,0.09804,1",
-  "FogEnabled": false,
+  "AmbientLightColor": "0.30752,0.40501,0.45376,1",
+  "FogEnabled": true,
   "FogStartDistance": 0,
   "FogEndDistance": 4000,
   "FogStartHeight": 0,
   "FogEndHeight": 200,
   "FogMaximumOpacity": 0.5,
-  "FogColor": "1,1,1,1",
+  "FogColor": "0.5098,0.5451,0.66667,1",
   "FogStrength": 1,
   "FogDistanceFalloffExponent": 2,
   "FogVerticalFalloffExponent": 1
