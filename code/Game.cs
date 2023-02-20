@@ -19,6 +19,7 @@ public partial class TFGameRules : SDKGame
 		if ( Game.IsServer )
 		{
 			_ = new TFHud();
+			_ = new DayNightSystem();
 		}
 
 		if ( Game.IsClient )

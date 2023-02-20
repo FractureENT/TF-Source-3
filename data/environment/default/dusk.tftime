@@ -1,0 +1,15 @@
+{
+  "SkyColor": "0.39608,0.36078,0.47451,1",
+  "LightColor": "0.54118,0.49412,0.76471,1",
+  "AmbientLightColor": "0.1,0.1,0.1,1",
+  "FogEnabled": false,
+  "FogStartDistance": 0,
+  "FogEndDistance": 4000,
+  "FogStartHeight": 0,
+  "FogEndHeight": 200,
+  "FogMaximumOpacity": 0.5,
+  "FogColor": "1,1,1,1",
+  "FogStrength": 1,
+  "FogDistanceFalloffExponent": 2,
+  "FogVerticalFalloffExponent": 1
+}
